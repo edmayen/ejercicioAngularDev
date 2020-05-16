@@ -1,6 +1,69 @@
-<h1 class="border-bottom">
-  <a routerLink="/" class="btn btn-default btn-circle btn-circle-3d">
-    <i class="fas fa-angle-double-left"></i>
-  </a>
-  Consultas
-</h1>
+<div>
+  <h1 class="border-bottom">
+    Acerca
+  </h1>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">¿Qué es?</h1>
+          <p class="lead">Esta aplicación encuentra los multiplos de 3, 5 y 7 dentro del rango 0 al valor ingresado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 class="border-bottom">
+    Números
+  </h1>
+  <br />
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-10">
+      <form [formGroup]="formNumber" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="number" class="sr-only">Número</label>
+          <input
+            [OnlyNumber]="true"
+            type="text"
+            class="form-control"
+            id="number"
+            formControlName="number"
+            placeholder="Número"
+          />
+        </div>
+        <div class="mb-2">
+          <button
+            type="submit"
+            class="btn btn-primary mb-2"
+            (click)="calculateMultiples()"
+            [disabled]="formNumber.invalid"
+          >
+            Calcular
+          </button>
+        </div>
+        <div class="mb-2">
+          <button type="submit" class="btn btn-primary mb-2" (click)="cancelar()">Nuevo Calculo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4">
+      <ul class="list-group">
+        <ng-container *ngFor="let item of multiplesData">
+          <ng-container *ngIf="item.mult3">
+            <li class="list-group-item list-group-item-success">{{ item.num }}</li>
+          </ng-container>
+          <ng-container *ngIf="item.mult5">
+            <li class="list-group-item list-group-item-danger">{{ item.num }}</li>
+          </ng-container>
+          <ng-container *ngIf="item.mult7">
+            <li class="list-group-item list-group-item-info">{{ item.num }}</li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+  <hr />
+</div>
