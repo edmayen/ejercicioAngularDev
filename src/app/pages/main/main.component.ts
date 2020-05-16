@@ -10,6 +10,8 @@ export class MainComponent implements OnInit {
   formNumber: FormGroup;
   multiples: number[];
   multiplesData: any[];
+  twoMult35: any[] = [3, 5];
+  twoMult37: any[] = [3, 7];
 
   constructor() {}
 
@@ -33,17 +35,62 @@ export class MainComponent implements OnInit {
       mult3: Boolean,
       mult5: Boolean,
       mult7: Boolean,
+      isONe: Boolean,
+      isTwo: Boolean,
+      isThree: Boolean,
     };
     data = {};
     this.multiples = [];
     this.multiplesData = [];
     for (let i = 1; i < num; i++) {
-      console.log('Vuelta: ', i);
-      if (i % 3 == 0) {
+      if (i % 3 == 0 && i % 5 == 0) {
         data.num = i;
         data.mult3 = true;
         data.mult5 = false;
         data.mult7 = false;
+        data.isOne = false;
+        data.isTwo = true;
+        data.isThree = false;
+        this.multiplesData.push(data);
+        this.multiples.push(data.num);
+      } else if (i % 3 == 0 && i % 7 == 0) {
+        data.num = i;
+        data.mult3 = true;
+        data.mult5 = false;
+        data.mult7 = false;
+        data.isOne = false;
+        data.isTwo = true;
+        data.isThree = false;
+        this.multiplesData.push(data);
+        this.multiples.push(data.num);
+      } else if (i % 5 == 0 && i % 7 == 0) {
+        data.num = i;
+        data.mult3 = false;
+        data.mult5 = true;
+        data.mult7 = false;
+        data.isOne = false;
+        data.isTwo = true;
+        data.isThree = false;
+        this.multiplesData.push(data);
+        this.multiples.push(data.num);
+      } else if (i % 3 == 0 && i % 5 == 0 && i % 7 == 0) {
+        data.num = i;
+        data.mult3 = true;
+        data.mult5 = false;
+        data.mult7 = false;
+        data.isOne = false;
+        data.isTwo = false;
+        data.isThree = true;
+        this.multiplesData.push(data);
+        this.multiples.push(data.num);
+      } else if (i % 3 == 0) {
+        data.num = i;
+        data.mult3 = true;
+        data.mult5 = false;
+        data.mult7 = false;
+        data.isOne = true;
+        data.isTwo = false;
+        data.isThree = false;
         this.multiplesData.push(data);
         this.multiples.push(data.num);
       } else if (i % 5 == 0) {
@@ -51,6 +98,9 @@ export class MainComponent implements OnInit {
         data.mult3 = false;
         data.mult5 = true;
         data.mult7 = false;
+        data.isOne = true;
+        data.isTwo = false;
+        data.isThree = false;
         this.multiplesData.push(data);
         this.multiples.push(data.num);
       } else if (i % 7 == 0) {
@@ -58,9 +108,13 @@ export class MainComponent implements OnInit {
         data.mult3 = false;
         data.mult5 = false;
         data.mult7 = true;
+        data.isOne = true;
+        data.isTwo = false;
+        data.isThree = false;
         this.multiplesData.push(data);
         this.multiples.push(data.num);
       }
+
       console.log('Numero: ', i, 'con datos: ', data);
       console.log('Numero: ', i, 'con datos: ', this.multiplesData);
       console.log('Numero: ', i, 'con datos: ', this.multiples);
