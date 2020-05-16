@@ -9,14 +9,13 @@ import { MultNumbersModel } from '@app/models/multNumbers.model';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  //variable utilizada para almacenar los datos en la base
   multNumber: MultNumbersModel = new MultNumbersModel();
   formNumber: FormGroup;
-  multiples: number[];
+  //variable utilizada para la manipulación de los datos en el html
   multiplesData: any[];
-  twoMult35: any[] = [3, 5];
-  twoMult37: any[] = [3, 7];
-  twoMult57: any[] = [5, 7];
-  allMult: any[] = [3, 5, 7];
+  //variable utilizada para almacenar los multiplos
+  multiples: number[];
 
   constructor(private _numberServie: NumberService) {}
 
@@ -24,14 +23,17 @@ export class MainComponent implements OnInit {
     this.createFormNumber();
   }
 
+  //función que crea el formulario
   createFormNumber() {
     this.formNumber = new FormGroup({
       number: new FormControl('', [Validators.required]),
     });
   }
 
+  //funcion que calcula los multiplos
   calculateMultiples() {
     let num = this.formNumber.get('number').value;
+    //creacion de objeto con banderas para la manipulacion del html
     let data: any = {
       num: Number,
       mult3: Boolean,
@@ -141,6 +143,7 @@ export class MainComponent implements OnInit {
     this.saveData();
   }
 
+  //función que guarda los resultados en la base de datos
   saveData() {
     this.multNumber.number = this.formNumber.get('number').value;
     this.multNumber.multiples = this.multiples;
@@ -149,6 +152,8 @@ export class MainComponent implements OnInit {
     });
   }
 
+  //función que limpia los campos para realizar
+  //nueva busqueda
   cancelar() {
     this.formNumber.reset();
     this.multiplesData = [];

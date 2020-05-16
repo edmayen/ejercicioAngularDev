@@ -1,4 +1,5 @@
 <div>
+  <!-- Muestra información general acerca del funcionamiento de la aplicación -->
   <h1 class="border-bottom">
     Acerca
   </h1>
@@ -15,80 +16,93 @@
       </div>
     </div>
   </div>
+  <!-- Termina muestra información general -->
+
+  <!-- Inicia contenido principal -->
   <h1 class="border-bottom">
     Números
   </h1>
   <br />
   <div class="row">
-    <form [formGroup]="formNumber" class="form-inline">
-      <div class="form-group mx-sm-3 mb-2 col-md-4">
-        <label for="number" class="sr-only">Número</label>
-        <input
-          [OnlyNumber]="true"
-          type="text"
-          class="form-control"
-          id="number"
-          formControlName="number"
-          placeholder="Ingresa un número"
-        />
-      </div>
+    <div class="col-6">
+      <form [formGroup]="formNumber" class="form-inline">
+        <!-- Formulario para ingresar el número -->
+        <div class="form-group mb-2 col-sm-6 col-md-8 col-lg-6">
+          <label for="number" class="sr-only">Número</label>
+          <input
+            [OnlyNumber]="true"
+            type="text"
+            class="form-control"
+            id="number"
+            formControlName="number"
+            placeholder="Ingresa un número"
+          />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+          <!-- Botón que dispara la llamada de la función que calcula los multiplos-->
+          <button
+            type="submit"
+            class="btn btn-primary mb-2"
+            (click)="calculateMultiples()"
+            [disabled]="formNumber.invalid"
+          >
+            Calcular
+          </button>
+        </div>
+        <div class="col-sm-4 col-md-2 col-lg-4">
+          <!-- Botón que dispara la llamada que limpia los campos -->
+          <button type="button" class="btn btn-primary mb-2" (click)="cancelar()" [disabled]="formNumber.invalid">
+            Nuevo Calculo
+          </button>
+        </div>
+      </form>
+    </div>
 
-      <div class="col-mb-2">
-        <button
-          type="submit"
-          class="btn btn-primary mb-2"
-          (click)="calculateMultiples()"
-          [disabled]="formNumber.invalid"
-        >
-          Calcular
-        </button>
-      </div>
-      <div class="mb-2">
-        <button type="button" class="btn btn-primary mb-2" (click)="cancelar()" [disabled]="formNumber.invalid">
-          Nuevo Calculo
-        </button>
-      </div>
-    </form>
-  </div>
-  <br />
-  <br />
-  <div class="row">
-    <div class="col-sm-12 col-md-4 col-lg-4">
-      <ul class="list-group">
-        <ng-container *ngFor="let item of multiplesData">
-          <ng-container *ngIf="item.isOne">
-            <ng-container *ngIf="item.mult3">
-              <li class="list-group-item list-group-item-success">{{ item.num }}</li>
+    <div class="col-6">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <ul class="list-group">
+          <!-- Se recorre el arreglo de datos -->
+          <ng-container *ngFor="let item of multiplesData">
+            <!-- Evaluación de un multiplo-->
+            <ng-container *ngIf="item.isOne">
+              <ng-container *ngIf="item.mult3">
+                <li class="list-group-item list-group-item-success">{{ item.num }}</li>
+              </ng-container>
+              <ng-container *ngIf="item.mult5">
+                <li class="list-group-item list-group-item-danger">{{ item.num }}</li>
+              </ng-container>
+              <ng-container *ngIf="item.mult7">
+                <li class="list-group-item list-group-item-info">{{ item.num }}</li>
+              </ng-container>
             </ng-container>
-            <ng-container *ngIf="item.mult5">
-              <li class="list-group-item list-group-item-danger">{{ item.num }}</li>
+
+            <!-- Evaluación de dos multiplos -->
+            <ng-container *ngIf="item.isTwo">
+              <ng-container *ngIf="item.mult35">
+                <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5)</li>
+              </ng-container>
+              <ng-container *ngIf="item.mult37">
+                <li class="list-group-item list-group-item-success">{{ item.num }} (3, 7)</li>
+              </ng-container>
+              <ng-container *ngIf="item.mult57">
+                <li class="list-group-item list-group-item-danger">{{ item.num }} (5, 7)</li>
+              </ng-container>
             </ng-container>
-            <ng-container *ngIf="item.mult7">
-              <li class="list-group-item list-group-item-info">{{ item.num }}</li>
+
+            <!-- Evaluación  de tres multiplos-->
+            <ng-container *ngIf="item.isThree">
+              <ng-container *ngIf="item.mult357">
+                <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5, 7)</li>
+              </ng-container>
             </ng-container>
           </ng-container>
-
-          <ng-container *ngIf="item.isTwo">
-            <ng-container *ngIf="item.mult35">
-              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5)</li>
-            </ng-container>
-            <ng-container *ngIf="item.mult37">
-              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 7)</li>
-            </ng-container>
-            <ng-container *ngIf="item.mult57">
-              <li class="list-group-item list-group-item-danger">{{ item.num }} (5, 7)</li>
-            </ng-container>
-          </ng-container>
-
-          <ng-container *ngIf="item.isThree">
-            <ng-container *ngIf="item.mult357">
-              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5, 7)</li>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
+  <!-- Termina contenido principal -->
+  <br />
+  <br />
   <hr />
   <br />
   <br />
