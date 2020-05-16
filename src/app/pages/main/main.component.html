@@ -7,7 +7,10 @@
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">¿Qué es?</h1>
-          <p class="lead">Esta aplicación encuentra los multiplos de 3, 5 y 7 dentro del rango 0 al valor ingresado.</p>
+          <p class="lead">
+            Dado un número recibido se calcularan los multiplos de 3, 5 y 7 que se encuentren en el rango de 0 y el
+            número dado.
+          </p>
         </div>
       </div>
     </div>
@@ -17,34 +20,35 @@
   </h1>
   <br />
   <div class="row">
-    <div class="col-sm-12 col-md-10 col-lg-10">
-      <form [formGroup]="formNumber" class="form-inline">
-        <div class="form-group mx-sm-3 mb-2">
-          <label for="number" class="sr-only">Número</label>
-          <input
-            [OnlyNumber]="true"
-            type="text"
-            class="form-control"
-            id="number"
-            formControlName="number"
-            placeholder="Número"
-          />
-        </div>
-        <div class="mb-2">
-          <button
-            type="submit"
-            class="btn btn-primary mb-2"
-            (click)="calculateMultiples()"
-            [disabled]="formNumber.invalid"
-          >
-            Calcular
-          </button>
-        </div>
-        <div class="mb-2">
-          <button type="submit" class="btn btn-primary mb-2" (click)="cancelar()">Nuevo Calculo</button>
-        </div>
-      </form>
-    </div>
+    <form [formGroup]="formNumber" class="form-inline">
+      <div class="form-group mx-sm-3 mb-2 col-md-4">
+        <label for="number" class="sr-only">Número</label>
+        <input
+          [OnlyNumber]="true"
+          type="text"
+          class="form-control"
+          id="number"
+          formControlName="number"
+          placeholder="Ingresa un número"
+        />
+      </div>
+
+      <div class="col-mb-2">
+        <button
+          type="submit"
+          class="btn btn-primary mb-2"
+          (click)="calculateMultiples()"
+          [disabled]="formNumber.invalid"
+        >
+          Calcular
+        </button>
+      </div>
+      <div class="mb-2">
+        <button type="button" class="btn btn-primary mb-2" (click)="cancelar()" [disabled]="formNumber.invalid">
+          Nuevo Calculo
+        </button>
+      </div>
+    </form>
   </div>
   <br />
   <br />
@@ -65,20 +69,20 @@
           </ng-container>
 
           <ng-container *ngIf="item.isTwo">
-            <ng-container *ngIf="item.mult3">
-              <li class="list-group-item list-group-item-success">{{ item.num }} ( {{ item }} )</li>
+            <ng-container *ngIf="item.mult35">
+              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5)</li>
             </ng-container>
-            <ng-container *ngIf="item.mult5">
-              <li class="list-group-item list-group-item-danger">{{ item.num }}</li>
+            <ng-container *ngIf="item.mult37">
+              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 7)</li>
             </ng-container>
-            <ng-container *ngIf="item.mult7">
-              <li class="list-group-item list-group-item-info">{{ item.num }}</li>
+            <ng-container *ngIf="item.mult57">
+              <li class="list-group-item list-group-item-danger">{{ item.num }} (5, 7)</li>
             </ng-container>
           </ng-container>
 
           <ng-container *ngIf="item.isThree">
-            <ng-container *ngIf="item.mult3">
-              <li class="list-group-item list-group-item-success">{{ item.num }}</li>
+            <ng-container *ngIf="item.mult357">
+              <li class="list-group-item list-group-item-success">{{ item.num }} (3, 5, 7)</li>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -86,4 +90,6 @@
     </div>
   </div>
   <hr />
+  <br />
+  <br />
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NumberService } from '@app/services/number.service';
+import { MultNumbersModel } from '@app/models/multNumbers.model';
 
 @Component({
   selector: 'app-main',
@@ -7,19 +9,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  multNumber: MultNumbersModel = new MultNumbersModel();
   formNumber: FormGroup;
   multiples: number[];
   multiplesData: any[];
   twoMult35: any[] = [3, 5];
   twoMult37: any[] = [3, 7];
+  twoMult57: any[] = [5, 7];
+  allMult: any[] = [3, 5, 7];
 
-  constructor() {}
+  constructor(private _numberServie: NumberService) {}
 
   ngOnInit(): void {
     this.createFormNumber();
-    this.formNumber.valueChanges.subscribe((data) => {
-      console.log(data);
-    });
   }
 
   createFormNumber() {
@@ -35,6 +37,10 @@ export class MainComponent implements OnInit {
       mult3: Boolean,
       mult5: Boolean,
       mult7: Boolean,
+      mult35: Boolean,
+      mult37: Boolean,
+      mult57: Boolean,
+      mult357: Boolean,
       isONe: Boolean,
       isTwo: Boolean,
       isThree: Boolean,
@@ -43,11 +49,29 @@ export class MainComponent implements OnInit {
     this.multiples = [];
     this.multiplesData = [];
     for (let i = 1; i < num; i++) {
-      if (i % 3 == 0 && i % 5 == 0) {
+      if (i % 3 == 0 && i % 5 == 0 && i % 7 == 0) {
         data.num = i;
         data.mult3 = true;
         data.mult5 = false;
         data.mult7 = false;
+        data.mult35 = false;
+        data.mult37 = false;
+        data.mult57 = false;
+        data.mult357 = true;
+        data.isOne = false;
+        data.isTwo = false;
+        data.isThree = true;
+        this.multiplesData.push(data);
+        this.multiples.push(data.num);
+      } else if (i % 3 == 0 && i % 5 == 0) {
+        data.num = i;
+        data.mult3 = true;
+        data.mult5 = false;
+        data.mult7 = false;
+        data.mult35 = true;
+        data.mult37 = false;
+        data.mult57 = false;
+        data.mult357 = false;
         data.isOne = false;
         data.isTwo = true;
         data.isThree = false;
@@ -58,6 +82,10 @@ export class MainComponent implements OnInit {
         data.mult3 = true;
         data.mult5 = false;
         data.mult7 = false;
+        data.mult35 = false;
+        data.mult37 = true;
+        data.mult57 = false;
+        data.mult357 = false;
         data.isOne = false;
         data.isTwo = true;
         data.isThree = false;
@@ -68,19 +96,13 @@ export class MainComponent implements OnInit {
         data.mult3 = false;
         data.mult5 = true;
         data.mult7 = false;
+        data.mult35 = false;
+        data.mult37 = false;
+        data.mult57 = true;
+        data.mult357 = false;
         data.isOne = false;
         data.isTwo = true;
         data.isThree = false;
-        this.multiplesData.push(data);
-        this.multiples.push(data.num);
-      } else if (i % 3 == 0 && i % 5 == 0 && i % 7 == 0) {
-        data.num = i;
-        data.mult3 = true;
-        data.mult5 = false;
-        data.mult7 = false;
-        data.isOne = false;
-        data.isTwo = false;
-        data.isThree = true;
         this.multiplesData.push(data);
         this.multiples.push(data.num);
       } else if (i % 3 == 0) {
@@ -114,16 +136,17 @@ export class MainComponent implements OnInit {
         this.multiplesData.push(data);
         this.multiples.push(data.num);
       }
-
-      console.log('Numero: ', i, 'con datos: ', data);
-      console.log('Numero: ', i, 'con datos: ', this.multiplesData);
-      console.log('Numero: ', i, 'con datos: ', this.multiples);
       data = {};
-      console.log('data:', data);
     }
-    console.log(this.multiplesData);
+    this.saveData();
+  }
 
-    console.log(this.multiples);
+  saveData() {
+    this.multNumber.number = this.formNumber.get('number').value;
+    this.multNumber.multiples = this.multiples;
+    this._numberServie.createMultiple(this.multNumber).subscribe((resp) => {
+      console.log(resp);
+    });
   }
 
   cancelar() {
