@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-html-cfe81": {
+      "hosting": {
+        "ejercicio-n-umeros-r": [
+          "angular-html-cfe81"
+        ]
+      }
+    }
+  }
+}

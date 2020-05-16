@@ -1,0 +1,28 @@
+{
+  "generator-ngx-rocket": {
+    "version": "8.1.0",
+    "props": {
+      "location": "path",
+      "strict": false,
+      "skipInstall": false,
+      "skipQuickstart": false,
+      "initGit": true,
+      "usePrefix": true,
+      "target": ["web"],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": false,
+      "lazy": false,
+      "angulartics": false,
+      "languages": ["en-US", "es-ES"],
+      "tools": ["prettier", "hads"],
+      "utility": [],
+      "deploy": "firebase",
+      "appName": "ejercicioNUmerosR",
+      "projectName": "ejercicio-n-umeros-r",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": []
+    }
+  }
+}
